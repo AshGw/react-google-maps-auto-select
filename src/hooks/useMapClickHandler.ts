@@ -9,14 +9,14 @@ import { getAutoCompletedLocationFromLatLng } from 'utils/getAutoCompletedLocati
  */
 export function useMapClickHandler({
   googleMap,
-  onClickZoomLevel,
+  zoomLevelUponClick,
   setCurrentLocation,
-  handleAutoCompletedLocationError,
+  onAutoCompletedLocationError,
 }: {
-  onClickZoomLevel?: number;
+  zoomLevelUponClick?: number;
   googleMap: Optional<google.maps.Map>;
   setCurrentLocation: Dispatch<SetStateAction<Location>>;
-  handleAutoCompletedLocationError?: (error: Error) => void;
+  onAutoCompletedLocationError?: (error: Error) => void;
 }) {
   const onMapClick = useCallback(
     async (mapMouseEvent: google.maps.MapMouseEvent) => {
@@ -27,7 +27,7 @@ export function useMapClickHandler({
       const lng = latLng.lng();
 
       googleMap?.panTo({ lat, lng });
-      googleMap?.setZoom(onClickZoomLevel ?? 18);
+      googleMap?.setZoom(zoomLevelUponClick ?? 18);
       try {
         const autoCompletedLocation = await getAutoCompletedLocationFromLatLng({
           location: { lat, lng },
@@ -35,16 +35,16 @@ export function useMapClickHandler({
 
         setCurrentLocation(autoCompletedLocation);
       } catch (e) {
-        if (handleAutoCompletedLocationError) {
-          handleAutoCompletedLocationError(e as unknown as Error);
+        if (onAutoCompletedLocationError) {
+          onAutoCompletedLocationError(e as unknown as Error);
         }
       }
     },
     [
       googleMap,
       setCurrentLocation,
-      onClickZoomLevel,
-      handleAutoCompletedLocationError,
+      zoomLevelUponClick,
+      onAutoCompletedLocationError,
     ]
   );
 

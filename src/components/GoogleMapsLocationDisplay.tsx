@@ -53,7 +53,7 @@ interface GoogleMapsLocationDisplayOwnProps {
    * Use this to customize the map's behavior and appearance.
    */
   googleMapProps?: GoogleMapProps;
-  onClickZoomLevel?: number;
+  zoomLevelUponClick?: number;
 }
 
 type GoogleMapsLocationDisplayProps<C extends React.ElementType> =
@@ -66,7 +66,7 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       onChangeLocation,
       googleMapsApiKey,
       fallback = null,
-      onClickZoomLevel,
+      zoomLevelUponClick,
       googleMapProps,
       as,
       ...props
@@ -88,7 +88,7 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
 
     const { onMapClick } = useMapClickHandler({
       googleMap,
-      onClickZoomLevel,
+      zoomLevelUponClick,
       setCurrentLocation,
     });
     const { isLoaded } = useLoadScript({
