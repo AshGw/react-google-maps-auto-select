@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import {
   GoogleMap,
   Marker,
   useLoadScript,
   type Libraries,
 } from '@react-google-maps/api';
-
 import { Location } from './types';
 import { Optional } from 'ts-roids';
 import { usePanTo } from 'hooks';
@@ -18,12 +17,23 @@ const GOOGLE_MAPS_LIBRARIES: Libraries = ['places'] as const;
 interface GoogleMapsLocationDisplayProps
   extends React.HTMLAttributes<HTMLDivElement> {
   initialLocation: Location;
+  googleMapsApiKey: string;
+  fallback?: React.ReactNode;
   onChangeLocation: (location: Location) => void;
 }
 
 export const GoogleMapsLocationDisplay: React.FC<GoogleMapsLocationDisplayProps> =
   React.forwardRef<HTMLDivElement, GoogleMapsLocationDisplayProps>(
-    ({ initialLocation, onChangeLocation, ...props }, ref) => {
+    (
+      {
+        initialLocation,
+        onChangeLocation,
+        googleMapsApiKey,
+        fallback,
+        ...props
+      },
+      ref
+    ) => {
       const [googleMap, setGoogleMap] =
         useState<Optional<google.maps.Map>>(null);
       const [currentLocation, setCurrentLocation] =
@@ -47,7 +57,34 @@ export const GoogleMapsLocationDisplay: React.FC<GoogleMapsLocationDisplayProps>
         googleMap?.panTo({ lat, lng });
         googleMap?.setZoom(18);
       }
-      return <></>;
+
+      const { isLoaded } = useLoadScript({
+        googleMapsApiKey,
+        libraries: GOOGLE_MAPS_LIBRARIES,
+      });
+
+      if (!isLoaded && !fallback) {
+        return null;
+      }
+
+      return (
+        <div ref={ref} {...props}>
+          <Suspense fallback={fallback}>
+            <GoogleMap
+              zoom={10}
+              center={{
+                lat: currentLocation.lat,
+                lng: currentLocation.lng,
+              }}
+              mapContainerClassName="w-full rounded-md overflow-hidden h-[350px] shadow"
+              onLoad={(map) => setGoogleMap(map)}
+              onClick={onClickAnywhereOnMap}
+            >
+              <Marker position={currentLocation} />
+            </GoogleMap>
+          </Suspense>
+        </div>
+      );
     }
   );
 
