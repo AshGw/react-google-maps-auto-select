@@ -8,7 +8,8 @@ import {
 } from '@react-google-maps/api';
 import { Location } from './types';
 import { Optional, Keys, EmptyObject } from 'ts-roids';
-import { usePanTo } from 'hooks';
+import { usePanTo } from './hooks';
+import { useMapClickHandler } from 'hooks/useMapClickHandler';
 
 // Predeclared here for performance optimizations:
 // Only the 'places' library is loaded to minimize payload size and enhance API loading speed.
@@ -53,6 +54,7 @@ interface GoogleMapsLocationDisplayOwnProps {
    * Use this to customize the map's behavior and appearance.
    */
   googleMapProps?: GoogleMapProps;
+  onClickZoomLevel?: number;
 }
 
 type GoogleMapsLocationDisplayProps<C extends React.ElementType> =
@@ -65,8 +67,9 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       onChangeLocation,
       googleMapsApiKey,
       fallback = null,
-      as,
+      onClickZoomLevel,
       googleMapProps,
+      as,
       ...props
     }: GoogleMapsLocationDisplayProps<C>,
     ref: PolymorphicRef<C>
@@ -84,16 +87,11 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       });
     }, [initialLocation.lat, initialLocation.lng, panTo]);
 
-    function onClickAnywhereOnMap(mapMouseEvent: google.maps.MapMouseEvent) {
-      const latLng = mapMouseEvent.latLng;
-      if (!latLng) return;
-
-      const lat = latLng.lat();
-      const lng = latLng.lng();
-      googleMap?.panTo({ lat, lng });
-      googleMap?.setZoom(18);
-    }
-
+    const { onMapClick } = useMapClickHandler({
+      googleMap,
+      onClickZoomLevel,
+      setCurrentLocation,
+    });
     const { isLoaded } = useLoadScript({
       googleMapsApiKey,
       libraries: GOOGLE_MAPS_LIBRARIES,
@@ -115,7 +113,10 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
               lng: currentLocation.lng,
             }}
             onLoad={(map) => setGoogleMap(map)}
-            onClick={onClickAnywhereOnMap}
+            onClick={(map) => {
+              onMapClick(map);
+              onChangeLocation(currentLocation);
+            }}
           >
             <Marker position={currentLocation} />
           </GoogleMap>

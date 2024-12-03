@@ -11,7 +11,7 @@ export function useMapClickHandler({
   onClickZoomLevel,
   setCurrentLocation,
 }: {
-  onClickZoomLevel: number;
+  onClickZoomLevel?: number;
   googleMap: Optional<google.maps.Map>;
   setCurrentLocation: Dispatch<SetStateAction<Location>>;
 }) {
