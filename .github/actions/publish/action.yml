@@ -11,19 +11,21 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Build
-      run: pnpm build --verobose
-      shell: bash
-    - name: Set up NPM credentials
-      run: echo "//registry.npmjs.org/:_authToken=${{ inputs.NPM_TOKEN }}" > ~/.npmrc
-      shell: bash
     - name: Check if package can be published
+      id: check
       run: |
-        if ! pnpm can-npm-publish; then
+        if pnpm can-npm-publish; then
+          echo "can_publish=true" >> $GITHUB_OUTPUT
+        else
           echo "This package cannot be published, as this version already exists."
-          exit 0
+          echo "can_publish=false" >> $GITHUB_OUTPUT
         fi
       shell: bash
-    - name: Publish package to NPM
-      run: pnpm publish --access public --no-git-checks
+
+    - name: Publish Package
+      if: steps.check.outputs.can_publish == 'true'
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${{ inputs.NPM_TOKEN }}" > ~/.npmrc
+        pnpm build --verbose
+        pnpm publish --access public --no-git-checks
       shell: bash
