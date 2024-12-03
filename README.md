@@ -6,17 +6,9 @@
 
 Capturing accurate location data from users is essential for applications like delivery services, event planning, or location-based services. Implementing this functionality manually can be complex, involving integration with Google Maps, handling user interactions, and performing reverse geocoding to obtain address details.
 
-**react-google-maps-auto-select** abstracts away this complexity by providing a ready-to-use component that handles map rendering, user interaction, and automatic retrieval of address information when a user selects a location on the map.
+**react-google-maps-auto-select** abstracts away this complexity by providing a ready-to-use component that handles map rendering, user interaction, and automatic retrieval of address information when a user selects a location anywhere on the map.
 
-## Features
 
-- **Interactive Map Display**: Show a Google Map centered at an initial location.
-- **User Location Selection**: Users can click anywhere on the map to select a new location.
-- **Automatic Reverse Geocoding**: Automatically fetches detailed address information when the location changes.
-- **Customizable Map Properties**: Customize the map's appearance and behavior with additional props.
-- **Polymorphic Component**: Render the component as any HTML element or custom component using the `as` prop.
-- **TypeScript Support**: Fully typed with exported types for `Location` and `FullAddress`.
-- **Error Handling**: Callbacks for handling errors during reverse geocoding.
 
 ## Installation
 
