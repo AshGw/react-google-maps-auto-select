@@ -1,0 +1,35 @@
+name: 'Publish to NPM'
+description: 'Publishes the package to NPM if eligible.'
+inputs:
+  NPM_TOKEN:
+    description: 'NPM authentication token'
+    required: true
+  GITHUB_TOKEN:
+    description: 'GitHub authentication token'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Check required environment variables
+      run: |
+        required_vars=("NPM_TOKEN" "GITHUB_TOKEN")
+        for var_name in "${required_vars[@]}"; do
+          if [ -z "${!var_name}" ]; then
+            echo "Error: $var_name is not set."
+            exit 1
+          fi
+        done
+      shell: bash
+    - name: Set up NPM credentials
+      run: echo "//registry.npmjs.org/:_authToken=${{ inputs.NPM_TOKEN }}" > ~/.npmrc
+      shell: bash
+    - name: Check if package can be published
+      run: |
+        if ! pnpm can-npm-publish; then
+          echo "This package cannot be published, as this version already exists."
+          exit 0
+        fi
+      shell: bash
+    - name: Publish package to NPM
+      run: pnpm publish --access public --no-git-checks
+      shell: bash

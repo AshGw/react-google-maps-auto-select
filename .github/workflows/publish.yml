@@ -16,8 +16,8 @@ jobs:
       - uses: ./.github/actions/setup
       - name: Build
         run: pnpm build
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: Publish
+        uses: ./.github/actions/publish
+        with:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bash ./scripts/publish.sh
+          GITHUB_TOKEN: ${{ github.token }}
