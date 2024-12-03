@@ -1,0 +1,1 @@
+export { GoogleMapsLocationDisplay } from './GoogleMapsLocationDisplay';

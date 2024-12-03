@@ -1,6 +1,6 @@
 import { type SetStateAction, useCallback, type Dispatch } from 'react';
 import type { Optional } from 'ts-roids';
-import type { Location } from './../types';
+import type { Location } from '../utils/types';
 
 /**
  * Hook to create a click handler for a Google Map that pans and zooms to the clicked location,
@@ -16,7 +16,7 @@ export function useMapClickHandler({
   setCurrentLocation: Dispatch<SetStateAction<Location>>;
 }) {
   const onMapClick = useCallback(
-    (mapMouseEvent: google.maps.MapMouseEvent) => {
+    async (mapMouseEvent: google.maps.MapMouseEvent) => {
       const latLng = mapMouseEvent.latLng;
       if (!latLng) return;
 
@@ -25,17 +25,10 @@ export function useMapClickHandler({
 
       googleMap?.panTo({ lat, lng });
       googleMap?.setZoom(onClickZoomLevel ?? 18);
-
-      // TODO: actually change this
-      setCurrentLocation({
-        lat,
-        lng,
-        city: '',
-        clickedValue: '',
-        country: '',
-        postalCode: 55,
-        streetAddress: '',
+      const autoCompletedLocation = await getAutoCompletedLocationFromGeoCode({
+        location: { lat, lng },
       });
+      setCurrentLocation(autoCompletedLocation);
     },
     [googleMap, setCurrentLocation, onClickZoomLevel]
   );

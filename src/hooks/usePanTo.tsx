@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import type { Location } from './../types';
+import type { Location } from '../utils/types';
 import type { Optional } from 'ts-roids';
 
 /**

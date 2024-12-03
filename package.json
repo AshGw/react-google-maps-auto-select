@@ -109,6 +109,7 @@
   },
   "packageManager": "pnpm@8.14.0",
   "dependencies": {
-    "@react-google-maps/api": "^2.20.3"
+    "@react-google-maps/api": "^2.20.3",
+    "use-places-autocomplete": "^4.0.1"
   }
 }

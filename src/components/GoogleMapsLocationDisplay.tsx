@@ -6,10 +6,9 @@ import {
   useLoadScript,
   type Libraries,
 } from '@react-google-maps/api';
-import { Location } from './types';
+import { Location } from '../utils/types';
 import { Optional, Keys, EmptyObject } from 'ts-roids';
-import { usePanTo } from './hooks';
-import { useMapClickHandler } from 'hooks/useMapClickHandler';
+import { usePanTo, useMapClickHandler } from '../hooks';
 
 // Predeclared here for performance optimizations:
 // Only the 'places' library is loaded to minimize payload size and enhance API loading speed.
