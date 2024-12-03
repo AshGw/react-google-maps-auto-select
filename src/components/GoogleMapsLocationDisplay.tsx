@@ -53,7 +53,20 @@ interface GoogleMapsLocationDisplayOwnProps {
    * Use this to customize the map's behavior and appearance.
    */
   googleMapProps?: GoogleMapProps;
+
+  /**
+   * The zoom level to set when the user clicks on the map.
+   * Defaults to `18` if not provided.
+   */
   zoomLevelUponClick?: number;
+
+  /**
+   * Optional callback function that gets called when an error occurs during
+   * the auto-completion of the location (e.g., reverse geocoding failure).
+   *
+   * @param error - The error object containing details about the failure.
+   */
+  onAutoCompletedLocationError?: (error: Error) => void;
 }
 
 type GoogleMapsLocationDisplayProps<C extends React.ElementType> =
@@ -68,6 +81,7 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       fallback = null,
       zoomLevelUponClick,
       googleMapProps,
+      onAutoCompletedLocationError,
       as,
       ...props
     }: GoogleMapsLocationDisplayProps<C>,
@@ -90,7 +104,9 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       googleMap,
       zoomLevelUponClick,
       setCurrentLocation,
+      onAutoCompletedLocationError,
     });
+
     const { isLoaded } = useLoadScript({
       googleMapsApiKey,
       libraries: GOOGLE_MAPS_LIBRARIES,

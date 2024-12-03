@@ -28,6 +28,7 @@ export function useMapClickHandler({
 
       googleMap?.panTo({ lat, lng });
       googleMap?.setZoom(zoomLevelUponClick ?? 18);
+
       try {
         const autoCompletedLocation = await getAutoCompletedLocationFromLatLng({
           location: { lat, lng },
