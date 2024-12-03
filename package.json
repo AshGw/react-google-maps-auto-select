@@ -1,8 +1,12 @@
 {
-  "name": "react-gmaps-select",
+  "name": "react-google-maps-auto-select",
   "version": "1.0.2",
-  "description": "React component to automatically select a Google Maps locations when  clicked",
-  "author": "Ashref Gwader",
+  "description": "",
+  "author": {
+    "email": "ashref@ashgw.me",
+    "name": "Ashref Gwader",
+    "url": "https://ashgw.me"
+  },
   "license": "MIT",
   "main": "dist/index.min.js",
   "module": "dist/index.es.js",
