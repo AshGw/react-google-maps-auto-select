@@ -45,3 +45,45 @@ export interface Location {
    */
   country: Optional<string>;
 }
+
+/**
+ * Represents a human-readable subset of an address.
+ */
+export type ReadableAddress = Pick<
+  Location,
+  'streetAddress' | 'city' | 'postalCode' | 'country'
+>;
+
+/** 
+	@see https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes
+*/
+export type AddressComponentKey =
+  | 'street_address'
+  | 'route'
+  | 'intersection'
+  | 'political'
+  | 'country'
+  | 'administrative_area_level_1'
+  | 'administrative_area_level_2'
+  | 'administrative_area_level_3'
+  | 'colloquial_area'
+  | 'locality'
+  | 'sublocality'
+  | 'neighborhood'
+  | 'premise'
+  | 'subpremise'
+  | 'postal_code'
+  | 'natural_feature'
+  | 'airport'
+  | 'park'
+  | 'point_of_interest'
+  | 'floor'
+  | 'establishment'
+  | 'parking'
+  | 'postal_town'
+  | 'street_number'
+  | 'sublocality_level_1'
+  | 'sublocality_level_2'
+  | 'sublocality_level_3'
+  | 'sublocality_level_4'
+  | 'sublocality_level_5';
