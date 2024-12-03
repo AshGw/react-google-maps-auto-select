@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import {
   GoogleMap,
+  GoogleMapProps,
   Marker,
   useLoadScript,
   type Libraries,
@@ -46,6 +47,12 @@ interface GoogleMapsLocationDisplayOwnProps {
    * Can be any valid React node, such as a spinner or placeholder.
    */
   fallback?: React.ReactNode;
+
+  /**
+   * Additional props to pass to the `GoogleMap` component from `@react-google-maps/api`.
+   * Use this to customize the map's behavior and appearance.
+   */
+  googleMapProps?: GoogleMapProps;
 }
 
 type GoogleMapsLocationDisplayProps<C extends React.ElementType> =
@@ -59,6 +66,7 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       googleMapsApiKey,
       fallback = null,
       as,
+      googleMapProps,
       ...props
     }: GoogleMapsLocationDisplayProps<C>,
     ref: PolymorphicRef<C>
@@ -101,12 +109,11 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       <Component ref={ref} {...props}>
         <Suspense fallback={fallback}>
           <GoogleMap
-            zoom={10}
+            {...googleMapProps}
             center={{
               lat: currentLocation.lat,
               lng: currentLocation.lng,
             }}
-            mapContainerClassName="w-full rounded-md overflow-hidden h-[350px] shadow"
             onLoad={(map) => setGoogleMap(map)}
             onClick={onClickAnywhereOnMap}
           >
