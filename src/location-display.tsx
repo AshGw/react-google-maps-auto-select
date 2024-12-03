@@ -26,9 +26,25 @@ type PolymorphicComponentProps<
   };
 
 interface GoogleMapsLocationDisplayOwnProps {
+  /**
+   * The initial location to display on the map.
+   */
   initialLocation: Location;
+
+  /**
+   * Callback function called when the location changes (e.g., when the user clicks on the map).
+   */
   onChangeLocation: (location: Location) => void;
+
+  /**
+   * Your Google Maps API key.
+   */
   googleMapsApiKey: string;
+
+  /**
+   * Optional fallback component to display while the Google Maps script is loading.
+   * Can be any valid React node, such as a spinner or placeholder.
+   */
   fallback?: React.ReactNode;
 }
 
