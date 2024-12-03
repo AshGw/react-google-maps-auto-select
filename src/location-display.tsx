@@ -19,8 +19,11 @@ interface GoogleMapsLocationDisplayProps
   onChangeLocation: (location: Location) => void;
 }
 
-export const GoogleMapsLocationDisplay: React.FC<
-  GoogleMapsLocationDisplayProps
-> = () => {
-  return <></>;
-};
+export const GoogleMapsLocationDisplay: React.FC<GoogleMapsLocationDisplayProps> =
+  React.forwardRef<HTMLDivElement, GoogleMapsLocationDisplayProps>(
+    ({ initialLocation, onChangeLocation, ...props }, ref) => {
+      return <></>;
+    }
+  );
+
+GoogleMapsLocationDisplay.displayName = 'GoogleMapsLocationDisplay';
