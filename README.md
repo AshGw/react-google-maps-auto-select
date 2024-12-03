@@ -101,7 +101,7 @@ Here is an example showcasing all possible configurations:
 ```jsx
 <GoogleMapsLocationDisplay
   as="section"
-  initialLocation={{ lat: 40.7128, lng: -74.0060 }} // New York City
+  initialLocation={{ lat: 40.7128, lng: -74.0060, clickedValue: 'somewhere' }} 
   onChangeLocation={(location) => {
     console.log('Location changed:', location);
     // Access detailed address information
@@ -154,25 +154,25 @@ export interface FullAddress {
    * Postal or ZIP code of the location.
    * Example: "94103".
    */
-  postalCode?: number;
+  postalCode: number | null;
 
   /**
    * Street address of the location.
    * Example: "1600 Amphitheatre Parkway".
    */
-  streetAddress?: string;
+  streetAddress: string | null;
 
   /**
    * City where the location resides.
    * Example: "San Francisco".
    */
-  city?: string;
+  city: string | null;
 
   /**
    * Country name where the location resides.
    * Example: "United States".
    */
-  country?: string;
+  country: string | null;
 }
 ```
 
