@@ -11,6 +11,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Build
+      run: pnpm build
+      shell: bash
     - name: Set up NPM credentials
       run: echo "//registry.npmjs.org/:_authToken=${{ inputs.NPM_TOKEN }}" > ~/.npmrc
       shell: bash

@@ -14,8 +14,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - name: Build
-        run: pnpm build
       - name: Publish
         uses: ./.github/actions/publish
         with:
