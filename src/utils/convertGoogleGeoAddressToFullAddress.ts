@@ -1,14 +1,14 @@
-import type { AddressComponentKey, Location, ReadableAddress } from './types';
+import type { AddressComponentKey, Location, FullAddress } from './types';
 
 /**
  * Converts Google Geocoding API address components into a readable address format.
  *
  */
-export const convertGoogleGeoAddressToReadableAddress = ({
+export const convertGoogleGeoAddressToFullAddress = ({
   addrComponents,
 }: {
   addrComponents: google.maps.GeocoderAddressComponent[];
-}): ReadableAddress => {
+}): FullAddress => {
   /**
    * Helper function to find an address component by its type.
    */
@@ -25,5 +25,5 @@ export const convertGoogleGeoAddressToReadableAddress = ({
     country: countryEntry?.long_name ?? null,
     streetAddress: streetAddressEntry?.long_name ?? null,
     city: cityEntry?.long_name ?? null,
-  } satisfies ReadableAddress;
+  } satisfies FullAddress;
 };

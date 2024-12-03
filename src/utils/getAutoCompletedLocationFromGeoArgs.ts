@@ -1,7 +1,7 @@
 import { getGeocode, getLatLng, type GeoArgs } from 'use-places-autocomplete';
 
 import type { Location } from './types';
-import { convertGoogleGeoAddressToReadableAddress } from './a';
+import { convertGoogleGeoAddressToFullAddress } from './convertGoogleGeoAddressToFullAddress';
 
 interface GeoCodeResult extends google.maps.GeocoderResult {}
 
@@ -17,7 +17,7 @@ export async function getAutoCompletedLocationFromGeoArgs(
     throw new Error('No geocode result found');
   }
 
-  const fullAddress = convertGoogleGeoAddressToReadableAddress({
+  const fullAddress = convertGoogleGeoAddressToFullAddress({
     addrComponents: geoCodeResult.address_components,
   });
 
