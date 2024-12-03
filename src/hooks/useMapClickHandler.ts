@@ -11,8 +11,8 @@ export function useMapClickHandler({
   onClickZoomLevel,
   setCurrentLocation,
 }: {
-  googleMap: Optional<google.maps.Map>;
   onClickZoomLevel: number;
+  googleMap: Optional<google.maps.Map>;
   setCurrentLocation: Dispatch<SetStateAction<Location>>;
 }) {
   const onMapClick = useCallback(
@@ -26,7 +26,16 @@ export function useMapClickHandler({
       googleMap?.panTo({ lat, lng });
       googleMap?.setZoom(onClickZoomLevel ?? 18);
 
-      setCurrentLocation({});
+      // TODO: actually change this
+      setCurrentLocation({
+        lat,
+        lng,
+        city: '',
+        clickedValue: '',
+        country: '',
+        postalCode: 55,
+        streetAddress: '',
+      });
     },
     [googleMap, setCurrentLocation, onClickZoomLevel]
   );
