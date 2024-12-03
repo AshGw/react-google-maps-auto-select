@@ -18,11 +18,11 @@ type PolymorphicRef<C extends React.ElementType> =
   React.ComponentPropsWithRef<C>['ref'];
 
 type PolymorphicComponentProps<
-  C extends React.ElementType,
+  Component extends React.ElementType,
   Props = EmptyObject,
 > = Props &
-  Omit<React.ComponentPropsWithoutRef<C>, Keys<Props>> & {
-    as?: C;
+  Omit<React.ComponentPropsWithoutRef<Component>, Keys<Props>> & {
+    as?: Component;
   };
 
 interface GoogleMapsLocationDisplayOwnProps {
@@ -75,7 +75,7 @@ export const GoogleMapsLocationDisplay = React.forwardRef(
       libraries: GOOGLE_MAPS_LIBRARIES,
     });
 
-    const Component = as || React.Fragment;
+    const Component = as ?? React.Fragment;
 
     if (!isLoaded && !fallback) {
       return null;
