@@ -1,37 +1,32 @@
-import {
-  getGeocode as getAutoCompleteGeoCode,
-  getLatLng,
-  type GeoArgs,
-} from 'use-places-autocomplete';
+import { getGeocode, getLatLng, type GeoArgs } from 'use-places-autocomplete';
 
-import type { AddressComponentKey, Location } from './types';
+import type { Location } from './types';
+import { convertGoogleGeoAddressToReadableAddress } from './a';
 
-interface FullAddress
-  extends Pick<Location, 'streetAddress' | 'city' | 'postalCode' | 'country'> {}
+interface GeoCodeResult extends google.maps.GeocoderResult {}
 
-export async function getAutoCompletedLocationFromGeoCode(
+export async function getAutoCompletedLocationFromGeoArgs(
   geoArgs: GeoArgs
 ): Promise<Location> {
-  const getCodeResultArr: google.maps.GeocoderResult[] =
-    await getAutoCompleteGeoCode({
-      ...geoArgs,
-    });
+  const getCodeResultArr: GeoCodeResult[] = await getGeocode({
+    ...geoArgs,
+  });
 
   const geoCodeResult = getCodeResultArr[0];
   if (!geoCodeResult) {
     throw new Error('No geocode result found');
   }
 
-  const fullAddress = convertGoogleGeoAddressToLocationAddress({
+  const fullAddress = convertGoogleGeoAddressToReadableAddress({
     addrComponents: geoCodeResult.address_components,
   });
 
   const { lat, lng } = getLatLng(geoCodeResult);
 
   return {
+    ...fullAddress,
     lat: geoArgs.location?.lat ? (geoArgs.location.lat as number) : lat,
     lng: geoArgs.location?.lng ? (geoArgs.location.lng as number) : lng,
-    ...fullAddress,
     clickedValue: geoCodeResult.formatted_address,
   } satisfies Location;
 }
