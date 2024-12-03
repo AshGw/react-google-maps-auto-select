@@ -7,19 +7,10 @@ inputs:
   GITHUB_TOKEN:
     description: 'GitHub authentication token'
     required: true
+
 runs:
   using: 'composite'
   steps:
-    - name: Check required environment variables
-      run: |
-        required_vars=("NPM_TOKEN" "GITHUB_TOKEN")
-        for var_name in "${required_vars[@]}"; do
-          if [ -z "${!var_name}" ]; then
-            echo "Error: $var_name is not set."
-            exit 1
-          fi
-        done
-      shell: bash
     - name: Set up NPM credentials
       run: echo "//registry.npmjs.org/:_authToken=${{ inputs.NPM_TOKEN }}" > ~/.npmrc
       shell: bash
