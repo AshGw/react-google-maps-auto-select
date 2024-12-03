@@ -63,8 +63,6 @@ interface GoogleMapsLocationDisplayOwnProps {
   /**
    * Optional callback function that gets called when an error occurs during
    * the auto-completion of the location (e.g., reverse geocoding failure).
-   *
-   * @param error - The error object containing details about the failure.
    */
   onAutoCompletedLocationError?: (error: Error) => void;
 }
