@@ -21,18 +21,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "baseUrl": "./src",
-    "paths": {
-      "tslib": [
-        "node_modules/tslib/tslib.d.ts"
-      ],
-      "@/*": ["./src/*"]
-    },
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules"
-      }
-    ],
+    "baseUrl": "./src",   
   },
   "include": [
     "src/**/*"
