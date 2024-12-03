@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { Location } from './../types';
-import { Optional } from 'ts-roids';
+import type { Location } from './../types';
+import type { Optional } from 'ts-roids';
 
 /**
  * Hook to pan and zoom a Google Map instance to a specific location.
