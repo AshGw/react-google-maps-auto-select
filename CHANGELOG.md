@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v0.1.0
+
+[compare changes](https://github.com/AshGw/react-google-maps-auto-select/compare/v0.0.10...v0.1.0)
+
 ## v0.0.10
 
 
