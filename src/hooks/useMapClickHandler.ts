@@ -1,6 +1,7 @@
 import { type SetStateAction, useCallback, type Dispatch } from 'react';
 import type { Optional } from 'ts-roids';
 import type { Location } from '../utils/types';
+import { getAutoCompletedLocationFromLatLng } from 'utils/getAutoCompletedLocationFromGeoArgs';
 
 /**
  * Hook to create a click handler for a Google Map that pans and zooms to the clicked location,
@@ -25,9 +26,10 @@ export function useMapClickHandler({
 
       googleMap?.panTo({ lat, lng });
       googleMap?.setZoom(onClickZoomLevel ?? 18);
-      const autoCompletedLocation = await getAutoCompletedLocationFromGeoCode({
+      const autoCompletedLocation = await getAutoCompletedLocationFromLatLng({
         location: { lat, lng },
       });
+
       setCurrentLocation(autoCompletedLocation);
     },
     [googleMap, setCurrentLocation, onClickZoomLevel]

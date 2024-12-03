@@ -5,8 +5,8 @@ import { convertGoogleGeoAddressToFullAddress } from './convertGoogleGeoAddressT
 
 interface GeoCodeResult extends google.maps.GeocoderResult {}
 
-export async function getAutoCompletedLocationFromGeoArgs(
-  geoArgs: GeoArgs
+export async function getAutoCompletedLocationFromLatLng(
+  geoArgs: Pick<GeoArgs, 'location'>
 ): Promise<Location> {
   const getCodeResultArr: GeoCodeResult[] = await getGeocode({
     ...geoArgs,
