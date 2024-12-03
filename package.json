@@ -1,7 +1,7 @@
 {
   "name": "react-google-maps-auto-select",
-  "version": "1.0.0",
-"description": "A React component for interactive Google Maps integration with automatic reverse geocoding, customizable map properties, and TypeScript support.",
+  "version": "0.1.0",
+  "description": "A React component for interactive Google Maps integration with automatic reverse geocoding, customizable map properties, and TypeScript support.",
   "author": {
     "email": "ashref@ashgw.me",
     "name": "Ashref Gwader",
