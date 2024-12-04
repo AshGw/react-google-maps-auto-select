@@ -46,7 +46,7 @@ export interface Location extends FullAddress {
    * The user-selected location value, typically shown in the UI.
    * Example: "Google HQ, Mountain View, CA, USA".
    */
-  clickedValue: string;
+  selectedFullAddress: string;
 }
 
 /** 

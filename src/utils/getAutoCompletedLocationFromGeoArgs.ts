@@ -27,6 +27,6 @@ export async function getAutoCompletedLocationFromLatLng(
     ...fullAddress,
     lat: geoArgs.location?.lat ? (geoArgs.location.lat as number) : lat,
     lng: geoArgs.location?.lng ? (geoArgs.location.lng as number) : lng,
-    clickedValue: geoCodeResult.formatted_address,
+    selectedFullAddress: geoCodeResult.formatted_address,
   } satisfies Location;
 }

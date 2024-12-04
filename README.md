@@ -16,10 +16,10 @@ Install the package using npm or pnpm:
 
 ```bash
 # Using npm
-npm install react-google-maps-auto-select 
+npm install react-google-maps-auto-select
 
 # Using pnpm
-pnpm add react-google-maps-auto-select 
+pnpm add react-google-maps-auto-select
 ```
 
 **Note**: `@react-google-maps/api` is a peer dependency and must be installed separately.
@@ -32,10 +32,9 @@ pnpm add react-google-maps-auto-select
 import React from 'react';
 import { GoogleMapsLocationDisplay, Location } from 'react-google-maps-auto-select';
 
-const App = () => {
-  const initialLocation = { lat: 37.7749, lng: -122.4194 };
+const App = ({ initialLocation }) => {
 
-  const handleLocationChange = (location: Location) => {
+  const handleLocationChange = (location) => {
     console.log('Selected location:', location);
     // You can access detailed address information here
     // Example: location.streetAddress, location.city, location.country
@@ -101,7 +100,7 @@ Here is an example showcasing all possible configurations:
 ```jsx
 <GoogleMapsLocationDisplay
   as="section"
-  initialLocation={{ lat: 40.7128, lng: -74.0060, clickedValue: 'somewhere' }} 
+  initialLocation={{ lat: 40.7128, lng: -74.0060, selectedFullAddress: 'somewhere' }}
   onChangeLocation={(location) => {
     console.log('Location changed:', location);
     // Access detailed address information
@@ -199,7 +198,7 @@ export interface Location extends FullAddress {
    * The user-selected location value, typically a formatted address.
    * Example: "Google HQ, Mountain View, CA, USA".
    */
-  clickedValue: string;
+  selectedFullAddress: string;
 }
 ```
 
@@ -209,7 +208,7 @@ When a user clicks on the map to select a location, the component automatically 
 
 - `lat`: Latitude of the selected location.
 - `lng`: Longitude of the selected location.
-- `clickedValue`: A formatted address string of the selected location.
+- `selectedFullAddress`: A formatted address string of the selected location.
 - `streetAddress`: Street address (e.g., "1600 Amphitheatre Parkway").
 - `city`: City name.
 - `postalCode`: Postal or ZIP code.
@@ -284,6 +283,3 @@ You can handle additional map events by passing event handlers through `googleMa
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-
-
